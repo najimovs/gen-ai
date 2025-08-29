@@ -1,16 +1,24 @@
 import "dotenv/config"
 import { GoogleGenAI } from "@google/genai"
+import express from "express"
 
 const ai = new GoogleGenAI( {} )
+const server = express()
+server.use( express.json() )
 
-main()
+server.get( "/", ( req, res ) => res.send( "Please use POST /prompt" ) )
 
-async function main() {
+server.post( "/prompt", async ( req, res ) => {
 
 	const response = await ai.models.generateContent( {
 		model: "gemini-2.5-flash",
-		contents: "What is your favorite color?",
+		contents: req.body.prompt,
 	} )
 
-	console.log( response.text )
-}
+	res.send( response.text )
+} )
+
+server.listen( 3_000, () => {
+
+	console.info( 3_000 )
+} )
