@@ -2,6 +2,8 @@ import "dotenv/config"
 import { GoogleGenAI } from "@google/genai"
 import express from "express"
 
+// added fisrt line commit to backend side
+
 const ai = new GoogleGenAI( {} )
 const server = express()
 server.use( express.json() )
